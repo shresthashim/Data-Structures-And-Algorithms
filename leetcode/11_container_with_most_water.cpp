@@ -7,12 +7,12 @@
 #include <iostream>
 using namespace std;
 
-int main (){
-
+int main()
+{
 
     int maxWaterStored = 0;
 
-    int  n = 9;
+    int n = 9;
 
     int height[9] = {1, 8, 6, 2, 5, 4, 8, 3, 7};
 
@@ -33,5 +33,41 @@ int main (){
     cout << maxWaterStored << endl;
 
     return 0;
+}
 
+// Optimal Approach
+
+// Time Complexity: O(n)
+
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+
+    int maxWaterStored = 0;
+
+    int n = 9;
+
+    int height[9] = {1, 8, 6, 2, 5, 4, 8, 3, 7};
+
+    int left = 0, right = n - 1;
+
+    while (left < right)
+    {
+
+        int heightOfContainer = min(height[left], height[right]);
+        int widthOfContainer = right - left;
+
+        int area = heightOfContainer * widthOfContainer;
+
+        maxWaterStored = max(maxWaterStored, area);
+
+        height[left] < height[right] ? left++ : right--;
+    }
+
+    cout << maxWaterStored << endl;
+
+    return 0;
 }
