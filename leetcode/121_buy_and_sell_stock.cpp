@@ -1,4 +1,6 @@
-//
+// Given an array of prices, find the maximum profit that can be made by buying and selling a stock at most once.
+
+// Time Complexity: O(n)
 
 #include <iostream>
 
