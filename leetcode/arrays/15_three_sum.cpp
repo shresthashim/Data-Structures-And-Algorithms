@@ -2,7 +2,7 @@
 
 // Notice that the solution set must not contain duplicate triplets.
 
-// Time Complexity: 0(log(n) + n^2)
+// Time Complexity: 0(nlog(n) + n^2)
 
 #include <iostream>
 #include <vector>
