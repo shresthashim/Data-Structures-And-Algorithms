@@ -1,10 +1,13 @@
 // Given an integer array nums of unique elements, return all possible
 // subsets  (the power set).
 
+// The solution set must not contain duplicate subsets. Return the solution in any order.
+
 // Time Complexity: O(n * 2^n)
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -15,7 +18,6 @@ void getAllSubsets(vector<int> &nums, vector<int> &ans, int i,
     if (i == nums.size())
     {
         allSubsets.push_back({ans});
-        ;
         return;
     }
 
@@ -25,11 +27,18 @@ void getAllSubsets(vector<int> &nums, vector<int> &ans, int i,
 
     ans.pop_back();
 
-    getAllSubsets(nums, ans, i + 1, allSubsets);
+    int idx = i + 1;
+
+    while (idx < nums.size() && nums[idx] == nums[idx - 1])
+        idx++;
+
+    getAllSubsets(nums, ans, idx, allSubsets);
 }
 
-vector<vector<int>> subsets(vector<int> &nums)
+vector<vector<int>> subsetsWithDup(vector<int> &nums)
 {
+
+    sort(nums.begin(), nums.end());
 
     vector<vector<int>> allSubsets;
     vector<int> ans;
@@ -42,8 +51,8 @@ vector<vector<int>> subsets(vector<int> &nums)
 int main()
 {
 
-    vector<int> nums = {1, 2, 3, 4, 5};
-    vector<vector<int>> result = subsets(nums);
+    vector<int> nums = {1, 2, 2};
+    vector<vector<int>> result = subsetsWithDup(nums);
 
     cout << "Subsets:" << endl;
     for (const auto &subset : result)
