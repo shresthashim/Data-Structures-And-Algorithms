@@ -1,0 +1,79 @@
+# Prerequisites
+*.d
+
+# Compiled Object Files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Compiled Executables
+*.exe
+*.out
+*.app
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic Libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled Static Libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Fortran Module Files
+*.mod
+*.smod
+
+# IDE and Editor Files
+.vscode/          # Visual Studio Code settings
+.idea/            # JetBrains IDE settings
+*.code-workspace  # Workspace files
+
+# Logs and Debug Files
+*.log
+*.pid
+*.seed
+*.stackdump
+*.diff
+
+# OS-Specific Files
+.DS_Store          # macOS
+Thumbs.db          # Windows
+desktop.ini        # Windows
+
+# Temporary Files
+*.tmp
+*.temp
+*.swp
+*.swo
+*.bak
+*.orig
+
+# Backup Files
+*.old
+*.save
+*.back
+
+# Build Files
+build/
+dist/
+
+# Dependency Files
+*.d
+
+# Generated Files
+*.generated.*
+*.gen.*
+
+# Other Miscellaneous
+*.~*
+*.pyc
+*.class
+tags
