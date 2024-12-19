@@ -3,72 +3,67 @@
 // Time Complexity: O(n)
 
 #include <iostream>
-#include <cstring>
 using namespace std;
 
 #define MAX 100
 
-char queue[MAX];
-
+int queue[MAX];
 int front = -1, rear = -1;
 
-void enqueue(char ch)
-{
-    if (rear >= MAX - 1)
-    {
+void enqueue(int val) {
+    if ((rear + 1) % MAX == front) {
         cout << "Queue Overflow!" << endl;
         return;
     }
-    if (front == -1)
-    {
+    if (front == -1) {
         front = 0;
     }
-    queue[++rear] = ch;
+    rear = (rear + 1) % MAX;
+    queue[rear] = val;
 }
 
-char dequeue()
-{
-    if (front == -1 || front > rear)
-    {
+int dequeue() {
+    if (front == -1) {
         cout << "Queue Underflow!" << endl;
-        return '\0';
+        return -1;
     }
-    return queue[front++];
+    int val = queue[front];
+    if (front == rear) {
+        front = rear = -1;
+    } else {
+        front = (front + 1) % MAX;
+    }
+    return val;
 }
 
-char peek()
-{
-    if (front == -1 || front > rear)
-    {
-        return '\0';
+int peek() {
+    if (front == -1) {
+        cout << "Queue is empty!" << endl;
+        return -1;
     }
     return queue[front];
 }
 
-bool isEmpty()
-{
-    return front == -1 || front > rear;
+bool isEmpty() {
+    return front == -1;
 }
 
-int main()
-{
+int main() {
+    enqueue(1);
+    enqueue(2);
 
-    enqueue('A');
-    enqueue('B');
-    enqueue('C');
+    cout << "Front element: " << peek() << endl;
 
-    cout << "Front element is: " << peek() << endl;
+    cout << "Dequeued: " << dequeue() << endl;
 
-    cout << "Removed element: " << dequeue() << endl;
-    cout << "Removed element: " << dequeue() << endl;
+    enqueue(3);
 
-    enqueue('D');
+    cout << "Dequeued: " << dequeue() << endl;
 
-    cout << "Front element is: " << peek() << endl;
+    cout << "Front element: " << peek() << endl;
 
-    while (!isEmpty())
-    {
-        cout << "Removed element: " << dequeue() << endl;
+    while (!isEmpty()) {
+        cout << "Dequeued: " << dequeue() << endl;
     }
 
     return 0;
