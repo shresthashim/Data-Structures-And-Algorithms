@@ -1,50 +1,13 @@
-// Infix expression into postfix expression
+// Infix to Postfix Conversion using Stack
 
 // Time Complexity: O(n)
 
 #include <iostream>
-#include <cstring>
+#include <stack>
+#include <string>
 using namespace std;
 
-#define MAX 100
-
-char stack[MAX];
-int top = -1;
-
-void push(char ch)
-{
-    if (top >= MAX - 1)
-    {
-        cout << "Stack Overflow!" << endl;
-        return;
-    }
-    stack[++top] = ch;
-}
-
-char pop()
-{
-    if (top < 0)
-    {
-        cout << "Stack Underflow!" << endl;
-        return '\0';
-    }
-    return stack[top--];
-}
-
-char peek()
-{
-    if (top < 0)
-    {
-        return '\0';
-    }
-    return stack[top];
-}
-
-bool isEmpty()
-{
-    return top == -1;
-}
-
+// Function to determine the precedence of operators
 int precedence(char op)
 {
     if (op == '+' || op == '-')
@@ -56,73 +19,77 @@ int precedence(char op)
     return 0;
 }
 
+// Function to check if a character is an operator
 bool isOperator(char ch)
 {
     return ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '^';
 }
 
+// Function to check if a character is an operand
 bool isOperand(char ch)
 {
     return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9');
 }
 
-void infixToPostfix(const char *infix, char *postfix)
+// Function to convert infix expression to postfix expression
+string infixToPostfix(const string &infix)
 {
-    int j = 0;
+    stack<char> s;
+    string postfix;
 
-    for (int i = 0; infix[i] != '\0'; i++)
+    for (int i = 0; i < infix.length(); i++)
     {
-        char ch = infix[i];
+        char ch = infix[i]; // Get the current character
 
         if (isOperand(ch))
         {
-            postfix[j++] = ch;
+            postfix += ch; // Append operand to postfix expression
         }
         else if (ch == '(')
         {
-            push(ch);
+            s.push(ch); // Push '(' onto the stack
         }
         else if (ch == ')')
         {
-            while (!isEmpty() && peek() != '(')
+            // Pop from the stack until '(' is found
+            while (!s.empty() && s.top() != '(')
             {
-                postfix[j++] = pop();
+                postfix += s.top();
+                s.pop();
             }
-            if (!isEmpty() && peek() == '(')
-            {
-                pop();
-            }
+            if (!s.empty() && s.top() == '(')
+                s.pop(); // Remove '('
         }
         else if (isOperator(ch))
         {
-            while (!isEmpty() && precedence(peek()) >= precedence(ch))
+            // Pop operators from the stack with higher or equal precedence
+            while (!s.empty() && precedence(s.top()) >= precedence(ch))
             {
-                postfix[j++] = pop();
+                postfix += s.top();
+                s.pop();
             }
-            push(ch);
+            s.push(ch); // Push the current operator onto the stack
         }
     }
 
-    while (!isEmpty())
+    // Pop remaining operators from the stack
+    while (!s.empty())
     {
-        postfix[j++] = pop();
+        postfix += s.top();
+        s.pop();
     }
 
-    postfix[j] = '\0';
+    return postfix;
 }
 
 int main()
 {
-    char infix[MAX], postfix[MAX];
-
+    string infix;
     cout << "Enter an infix expression: ";
     cin >> infix;
 
-    infixToPostfix(infix, postfix);
-
+    string postfix = infixToPostfix(infix);
     cout << "Postfix expression: " << postfix << endl;
 
     return 0;
 }
-
-

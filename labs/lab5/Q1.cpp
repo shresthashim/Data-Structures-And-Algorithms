@@ -1,88 +1,65 @@
-// Add a node in Linked List
+// Stack Push and Pop
+
+// Time Complexity: O(1)
 
 #include <iostream>
-
 using namespace std;
 
-struct Node
+#define MAX 100
+
+int stack[MAX];
+int top = -1;
+
+void push(int value)
 {
-    char data;
-    Node *next;
-};
-
-Node *front = NULL, *rear = NULL;
-
-void enqueue(char ch)
-{
-    Node *newNode = new Node;
-    newNode->data = ch;
-    newNode->next = NULL;
-
-    if (rear == NULL)
+    if (top >= MAX - 1)
     {
-        front = rear = newNode;
+        cout << "Stack Overflow\n";
         return;
     }
-
-    rear->next = newNode;
-    rear = newNode;
+    top++;
+    stack[top] = value;
+    cout << value << " pushed to stack\n";
 }
 
-char dequeue()
+int pop()
 {
-    if (front == NULL)
+    if (top < 0)
     {
-        cout << "Queue Underflow!" << endl;
-        return '\0';
+        cout << "Stack Underflow\n";
+        return -1;
     }
-
-    Node *temp = front;
-    front = front->next;
-
-    if (front == NULL)
-    {
-        rear = NULL;
-    }
-
-    char ch = temp->data;
-    delete temp;
-    return ch;
+    int poppedValue = stack[top];
+    top--;
+    cout << poppedValue << " popped from stack\n";
+    return poppedValue;
 }
 
-char peek()
+int peek()
 {
-    if (front == NULL)
+    if (top < 0)
     {
-        return '\0';
+        cout << "Stack is empty\n";
+        return -1;
     }
-    return front->data;
+    return stack[top];
 }
 
 bool isEmpty()
 {
-    return front == NULL;
+    return top < 0;
 }
 
 int main()
 {
+    push(10);
+    push(20);
+    push(30);
 
-    enqueue('A');
-    enqueue('B');
-    enqueue('C');
+    cout << "Top element is: " << peek() << "\n";
 
-    cout << "Front element is: " << peek() << endl;
-
-    cout << "Removed element: " << dequeue() << endl;
-    cout << "Removed element: " << dequeue() << endl;
-
-    enqueue('D');
-
-    cout << "Front element is: " << peek() << endl;
-
-    while (!isEmpty())
-    {
-        cout << "Removed element: " << dequeue() << endl;
-    }
+    pop();
+    pop();
 
     return 0;
 }
