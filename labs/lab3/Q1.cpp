@@ -7,7 +7,6 @@
 #include <string>
 using namespace std;
 
-// Function to determine the precedence of operators
 int precedence(char op)
 {
     if (op == '+' || op == '-')
@@ -19,19 +18,16 @@ int precedence(char op)
     return 0;
 }
 
-// Function to check if a character is an operator
 bool isOperator(char ch)
 {
     return ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '^';
 }
 
-// Function to check if a character is an operand
 bool isOperand(char ch)
 {
     return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9');
 }
 
-// Function to convert infix expression to postfix expression
 string infixToPostfix(const string &infix)
 {
     stack<char> s;
@@ -39,7 +35,7 @@ string infixToPostfix(const string &infix)
 
     for (int i = 0; i < infix.length(); i++)
     {
-        char ch = infix[i]; // Get the current character
+        char ch = infix[i]; 
 
         if (isOperand(ch))
         {
@@ -51,7 +47,6 @@ string infixToPostfix(const string &infix)
         }
         else if (ch == ')')
         {
-            // Pop from the stack until '(' is found
             while (!s.empty() && s.top() != '(')
             {
                 postfix += s.top();
