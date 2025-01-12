@@ -3,6 +3,7 @@
 // Time complexity: O(n)
 
 #include <iostream>
+using namespace std;
 
 class LinkedListNode
 {
@@ -13,7 +14,6 @@ public:
     LinkedListNode(int val) : value(val), next(NULL) {}
 };
 
-using namespace std;
 
 LinkedListNode *reverseLinkedList(LinkedListNode *head)
 {
